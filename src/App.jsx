@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import Categories from './components/Categories/Categories'
@@ -19,11 +19,11 @@ function App() {
     <>
       <Navbar></Navbar>
       <div className="categories flex justify-center items-center gap-5 m-5">
-          <Button bgColor='#3498db' textColor="#ddd">All</Button>
+          <Button bgColor='#3498db' textColor="#ddd">Home</Button>
           <Button bgColor='#8e44ad' textColor='#ffffff' onClick={handleCategories}>By Catgories</Button>
       </div>
           {
-            showCategories && <Categories />
+            showCategories && <Categories></Categories>
           }
     </>
   )

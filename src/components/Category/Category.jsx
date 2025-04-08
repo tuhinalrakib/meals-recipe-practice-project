@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../Button/Button'
 
 const Category = ({ category }) => {
+    const [isModalOpen,setIsModalOpen] = useState(false)
     const { idCategory, strCategoryThumb, strCategory, strCategoryDescription } = category
 
     const handleReadMore = () => {
-        document.getElementById('my_modal_1').showModal()
+        // document.getElementById('my_modal_1').showModal()
+        setIsModalOpen(true)
     };
+
+    const handleCloseModal = ()=>{
+        setIsModalOpen(false)
+    }
 
     return (
         <div className="text-center border-1 shadow-2xl border-gray-200 pb-4 rounded-2xl">
@@ -16,13 +22,13 @@ const Category = ({ category }) => {
             <p>{strCategoryDescription.slice(0, 30)}... <Button onClick={handleReadMore}>Read More</Button></p>
 
             {/* Modal */}
-            <dialog id="my_modal_1" className="modal">
+            <dialog open={isModalOpen} className="modal">
                 <div className="modal-box">
                     <p className='text-gray-500 text-xl'>{strCategoryDescription}</p>
                     <div className="modal-action">
-                        <form method="dialog">
-                            <button className="btn">Close</button>
-                        </form>
+                        <button onClick={handleCloseModal} className="btn">Close</button>
+                        {/* <form method="dialog">
+                        </form> */}
                     </div>
                 </div>
             </dialog>

@@ -4,22 +4,13 @@ import Category from '../Category/Category';
 
 const Categories = () => {
     const [categories,setCategories] = useState([])
-    const [errors,setErrors] = useState(null)
+    const [errors,setErrors] = useState(' ')
 
     useEffect(()=>{
-        const fetchApi = async ()=>{
-            try{
-                const res = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-                if(!res){
-                    throw new Error('Failed fetch data')
-                }
-                const data = await res.json()
-                setCategories(data.categories)
-                }catch(e){
-                    setErrors(e.message)
-                }
-            }
-        fetchApi()
+        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+        .then(res=>res.json())
+        .then(data=>setCategories(data.categories))
+        .catch(e=>setErrors(e.message))
     },[])
 
     console.log(categories)
@@ -28,7 +19,10 @@ const Categories = () => {
     return (
         <div className='w-[90%] mx-auto grid grid-cols-3 gap-5 my-6'>
             {
-                categories.map(category=><Category category={category}></Category>)
+                categories.length > 0 ? (categories.map(category=><Category key={category.idCategory} category={category}></Category>))
+                :(
+                    <P className="text-red-500">{errors}</P>
+                )
             }
         </div>
     );
